@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoEstudo Pro</title>
+
+<!-- Fontes e ícones -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* ===== VARIÁVEIS ===== */
+:root {
+  --primary: #4F46E5;
+  --primary-dark: #4338CA;
+  --primary-light: #818CF8;
+  --primary-bg: #EEF2FF;
+  --success: #10B981;
+  --danger: #EF4444;
+  --warning: #F59E0B;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-900);
+  min-height: 100vh;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--gray-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
+/* ===== HEADER ===== */
+#appHeader {
+  background: var(--gray-900);
+  color: white;
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.logo i {
+  color: var(--primary-light);
+  font-size: 24px;
+}
+
+.date-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.1);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+}
+
+/* ===== MAIN ===== */
+#appMain {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 24px 100px;
+}
+
+/* ===== PÁGINA ===== */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.page-title i {
+  color: var(--primary);
+  margin-right: 8px;
+}
+
+/* ===== BOTÕES ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 14px;
+  transition: var(--transition);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn i {
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}
+.btn-secondary:hover {
+  background: var(--gray-300);
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.full-width {
+  width: 100%;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* ===== PROGRESSO ===== */
+.progress-section {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--gray-200);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  border-radius: 10px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== LISTA DE TAREFAS ===== */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-item {
+  background: white;
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border-left: 4px solid transparent;
+}
+
+.task-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+}
+
+.task-item.done {
+  opacity: 0.6;
+  border-left-color: var(--success);
+}
+.task-item.done .task-name {
+  text-decoration: line-through;
+}
+
+.task-item.fixed-task {
+  border-left-color: var(--warning);
+  background: var(--primary-bg);
+}
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.task-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-name {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.task-meta {
+  font-size: 13px;
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.task-meta i {
+  font-size: 12px;
+}
+
+.task-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.task-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 50px;
+  background: var(--gray-200);
+  color: var(--gray-600);
+}
+
+.task-badge.priority-low {
+  background: #D1FAE5;
+  color: #065F46;
+}
+.task-badge.priority-medium {
+  background: #FEF3C7;
+  color: #92400E;
+}
+.task-badge.priority-high {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+.task-badge.badge-fixed {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.task-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--gray-400);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.btn-icon:hover {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+.btn-icon.danger:hover {
+  background: #FEE2E2;
+  color: var(--danger);
+}
+
+.alarm-indicator {
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.alarm-indicator.on { color: var(--warning); }
+.alarm-indicator.off { opacity: 0.3; }
+
+/* ===== ESTADO VAZIO ===== */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray-500);
+}
+.empty-state i {
+  font-size: 48px;
+  color: var(--gray-300);
+  margin-bottom: 16px;
+}
+.empty-state h3 {
+  color: var(--gray-700);
+  margin-bottom: 8px;
+}
+.empty-state .btn {
+  margin-top: 16px;
+}
+
+.empty-state.small {
+  padding: 30px 20px;
+}
+.empty-state.small i {
+  font-size: 30px;
+}
+
+/* ===== NAVEGAÇÃO INFERIOR ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0 env(safe-area-inset-bottom);
+  z-index: 100;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border: none;
+  background: transparent;
+  color: var(--gray-400);
+  font-size: 11px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-item i {
+  font-size: 20px;
+  transition: var(--transition);
+}
+
+.nav-item:hover {
+  color: var(--gray-600);
+}
+
+.nav-item.active {
+  color: var(--primary);
+}
+.nav-item.active i {
+  transform: translateY(-2px);
+}
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 0 0 4px 4px;
+}
+
+/* ===== MODAL ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--gray-50);
+}
+
+.modal-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.modal-header h2 i {
+  color: var(--primary);
+}
+
+.modal-close {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--gray-200);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-500);
+}
+.modal-close:hover {
+  background: var(--gray-300);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* ===== FORMULÁRIOS ===== */
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: var(--gray-700);
+}
+.form-group label i {
+  margin-right: 6px;
+  color: var(--gray-400);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-size: 14px;
+  transition: var(--transition);
+  background: white;
+  font-family: inherit;
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.conflict-warning {
+  background: #FEF3C7;
+  color: #92400E;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  display: none;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  margin: 8px 0;
+}
+.conflict-warning i {
+  font-size: 18px;
+}
+
+.day-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.day-check {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gray-100);
+  padding: 4px 12px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 13px;
+}
+.day-check:hover {
+  background: var(--gray-200);
+}
+.day-check input {
+  accent-color: var(--primary);
+}
+
+/* ===== SEMANA ===== */
+.week-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.week-title {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.week-day {
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  padding: 12px;
+  border: 1px solid var(--gray-200);
+  min-height: 200px;
+}
+.week-day.today {
+  border-color: var(--primary);
+  background: var(--primary-bg);
+}
+
+.week-day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--gray-200);
+}
+.week-day-number {
+  background: var(--gray-200);
+  padding: 2px 8px;
+  border-radius: 50px;
+  font-size: 12px;
+}
+
+.week-day-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.week-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: white;
+  border-left: 3px solid var(--gray-300);
+}
+.week-item.fixed {
+  border-left-color: var(--warning);
+  background: #FFFBEB;
+}
+.week-item.done {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+.week-item input {
+  accent-color: var(--primary);
+}
+.week-item small {
+  margin-left: auto;
+  color: var(--gray-400);
+  font-size: 10px;
+}
+
+.week-empty {
+  text-align: center;
+  color: var(--gray-300);
+  font-size: 20px;
+  padding: 16px 0;
+}
+
+/* ===== CONFIGURAÇÕES ===== */
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.settings-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 16px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+}
+.settings-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.settings-card i {
+  font-size: 28px;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.settings-card span {
+  font-weight: 600;
+  font-size: 14px;
+}
+.settings-card small {
+  color: var(--gray-500);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+/* ===== COMPROMISSOS FIXOS ===== */
+.fixed-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  border-left: 4px solid var(--warning);
+}
+.fixed-name {
+  font-weight: 600;
+}
+.fixed-meta {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+.fixed-actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* ===== BLOQUEIOS ===== */
+.blocked-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #FEF2F2;
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  border-left: 4px solid var(--danger);
+}
+.blocked-time {
+  font-weight: 600;
+}
+.blocked-days {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+.blocked-actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* ===== GERENCIAMENTO DE DADOS ===== */
+.data-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.data-action {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+  font-size: 14px;
+}
+.data-action:hover {
+  background: var(--gray-100);
+}
+.data-action i {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+}
+.data-action.danger {
+  border-color: #FEE2E2;
+  background: #FEF2F2;
+}
+.data-action.danger:hover {
+  background: #FEE2E2;
+}
+
+/* ===== TOAST ===== */
+#toastContainer {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 380px;
+  width: 100%;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--gray-900);
+  color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  transform: translateX(120%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: all;
+  animation: none;
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+.toast-success { background: #065F46; border-left: 4px solid var(--success); }
+.toast-error { background: #991B1B; border-left: 4px solid var(--danger); }
+.toast-warning { background: #92400E; border-left: 4px solid var(--warning); }
+.toast-info { background: #1E3A5F; border-left: 4px solid var(--primary); }
+
+.toast i {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.toast span {
+  flex: 1;
+  font-size: 14px;
+}
+.toast-close {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  padding: 4px;
+  font-size: 16px;
+  transition: var(--transition);
+}
+.toast-close:hover {
+  color: white;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+  .week-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .settings-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .modal-header h2 {
+    font-size: 17px;
+  }
+  .page-title {
+    font-size: 22px;
+  }
+  #appHeader {
+    padding: 12px 16px;
+  }
+  #appMain {
+    padding: 16px 16px 90px;
+  }
+  .task-item {
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .week-grid {
+    grid-template-columns: 1fr;
+  }
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+  .date-badge span {
+    font-size: 12px;
+  }
+  .toast {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
+  #toastContainer {
+    right: 12px;
+    left: 12px;
+    max-width: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header id="appHeader">
+  <div class="header-content">
+    <div class="header-left">
+      <div class="logo">
+        <i class="fas fa-calendar-check"></i>
+        <span>AutoEstudo</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="date-badge" id="todayLabel">
+        <i class="far fa-calendar-alt"></i>
+        <span>Carregando...</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main id="appMain">
+  <div id="home">
+    <!-- Conteúdo será renderizado pelo JavaScript -->
+  </div>
+</main>
+
+<!-- ===== MODAL ===== -->
+<div id="modal" class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-container">
+    <div class="modal-content" id="modalBox"></div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div id="toastContainer"></div>
+
+<script>
+
+// ============================================================
+// GERENCIAMENTO DE DADOS
+// ============================================================
+
+const KEY = "autoestudo_pro";
+
+let db = JSON.parse(
+  localStorage.getItem(KEY) ||
+  JSON.stringify({
+    tasks: [],
+    fixed: [],
+    blocked: [],
+    settings: {
+      sleep: "22:00",
+      theme: "light"
+    }
+  })
+);
+
+function save() {
+  localStorage.setItem(KEY, JSON.stringify(db));
+}
+
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+// ============================================================
+// UTILITÁRIOS DE DATA
+// ============================================================
+
+function dateKey(d = new Date()) {
+  return d.getFullYear() + "-" +
+    String(d.getMonth() + 1).padStart(2, "0") + "-" +
+    String(d.getDate()).padStart(2, "0");
+}
+
+function formatDate(k) {
+  const d = new Date(k + "T00:00:00");
+  return d.toLocaleDateString("pt-BR", {
+    weekday: "long",
+    day: "2-digit",
+    month: "short"
+  });
+}
+
+function formatDateShort(k) {
+  const d = new Date(k + "T00:00:00");
+  return d.toLocaleDateString("pt-BR", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short"
+  });
+}
+
+function getDayOfWeek(date) {
+  return new Date(date + "T00:00:00").getDay();
+}
+
+function minutes(time) {
+  const p = time.split(":");
+  return Number(p[0]) * 60 + Number(p[1]);
+}
+
+function timeFromMinutes(m) {
+  return String(Math.floor(m / 60)).padStart(2, "0") + ":" +
+         String(m % 60).padStart(2, "0");
+}
+
+function isOverlap(aStart, aEnd, bStart, bEnd) {
+  return minutes(aStart) < minutes(bEnd) &&
+         minutes(bStart) < minutes(aEnd);
+}
+
+// ============================================================
+// TOAST NOTIFICATIONS
+// ============================================================
+
+function showToast(message, type = "info", duration = 3000) {
+  const container = document.getElementById("toastContainer");
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${type}`;
+  
+  const icons = {
+    success: "fa-check-circle",
+    error: "fa-exclamation-circle",
+    warning: "fa-exclamation-triangle",
+    info: "fa-info-circle"
+  };
+  
+  toast.innerHTML = `
+    <i class="fas ${icons[type] || icons.info}"></i>
+    <span>${message}</span>
+    <button class="toast-close"><i class="fas fa-times"></i></button>
+  `;
+  
+  container.appendChild(toast);
+  
+  requestAnimationFrame(() => {
+    toast.classList.add("show");
+  });
+  
+  const close = () => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  };
+  
+  toast.querySelector(".toast-close").addEventListener("click", close);
+  
+  if (duration > 0) {
+    setTimeout(close, duration);
+  }
+  
+  return toast;
+}
+
+// ============================================================
+// CONFLICT CHECK
+// ============================================================
+
+function checkConflicts(date, start, duration, ignoreId = null) {
+  const end = minutes(start) + Number(duration);
+  
+  if (end > 1439) {
+    return "A tarefa precisa terminar antes da meia-noite.";
+  }
+  
+  const endTime = timeFromMinutes(end);
+  
+  const taskConflict = db.tasks.find(t =>
+    t.id !== ignoreId &&
+    t.date === date &&
+    isOverlap(start, endTime, t.start, t.end)
+  );
+  
+  if (taskConflict) {
+    return `Conflito com "${taskConflict.name}" (${taskConflict.start} - ${taskConflict.end})`;
+  }
+  
+  const dayOfWeek = getDayOfWeek(date);
+  const fixedConflict = db.fixed.find(f =>
+    f.days.includes(dayOfWeek) &&
+    isOverlap(start, endTime, f.start, f.end)
+  );
+  
+  if (fixedConflict) {
+    return `Conflito com compromisso fixo "${fixedConflict.name}"`;
+  }
+  
+  const blockedConflict = db.blocked.find(b =>
+    b.days.includes(dayOfWeek) &&
+    isOverlap(start, endTime, b.start, b.end)
+  );
+  
+  if (blockedConflict) {
+    return "Conflito com horário bloqueado";
+  }
+  
+  return "";
+}
+
+// ============================================================
+// RENDERIZAÇÃO PRINCIPAL
+// ============================================================
+
+function render() {
+  const today = dateKey();
+  const home = document.getElementById("home");
+  const todayLabel = document.getElementById("todayLabel");
+  
+  if (todayLabel) {
+    todayLabel.innerHTML = `
+      <i class="far fa-calendar-alt"></i>
+      <span>${formatDate(today)}</span>
+    `;
+  }
+  
+  const todayTasks = db.tasks
+    .filter(t => t.date === today)
+    .sort((a, b) => a.start.localeCompare(b.start));
+  
+  const fixedToday = db.fixed
+    .filter(f => f.days.includes(getDayOfWeek(today)))
+    .sort((a, b) => a.start.localeCompare(b.start));
+  
+  const totalTasks = todayTasks.length;
+  const doneTasks = todayTasks.filter(t => t.done).length;
+  const progress = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+  
+  let html = `
+    <div class="page-header">
+      <h1 class="page-title"><i class="fas fa-sun"></i> Hoje</h1>
+      <div class="page-actions">
+        <button class="btn btn-primary btn-sm" onclick="openAddTask()">
+          <i class="fas fa-plus"></i> Nova tarefa
+        </button>
+        <button class="btn btn-secondary btn-sm" onclick="openAutoTask()" style="margin-left: 8px;">
+          <i class="fas fa-bolt"></i> Auto
+        </button>
+      </div>
+    </div>
+    
+    <div class="progress-section">
+      <div class="progress-header">
+        <span>Progresso do dia</span>
+        <span>${doneTasks}/${totalTasks} concluídas</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: ${progress}%;"></div>
+      </div>
+    </div>
+    
+    <div class="task-list">
+  `;
+  
+  fixedToday.forEach(f => {
+    html += `
+      <div class="task-item fixed-task">
+        <div class="task-icon">
+          <i class="fas fa-bookmark"></i>
+        </div>
+        <div class="task-info">
+          <div class="task-name">${escapeHtml(f.name)}</div>
+          <div class="task-meta">
+            <i class="far fa-clock"></i> ${f.start} - ${f.end}
+            <span class="task-badge badge-fixed">Fixo</span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  
+  if (todayTasks.length === 0 && fixedToday.length === 0) {
+    html += `
+      <div class="empty-state">
+        <i class="fas fa-calendar-day"></i>
+        <h3>Nenhuma tarefa para hoje</h3>
+        <p>Aproveite o dia ou adicione uma nova tarefa!</p>
+        <button class="btn btn-primary" onclick="openAddTask()">
+          <i class="fas fa-plus"></i> Adicionar tarefa
+        </button>
+      </div>
+    `;
+  } else {
+    todayTasks.forEach(t => {
+      const isDone = t.done ? "done" : "";
+      const priorityColors = {
+        "Baixa": "priority-low",
+        "Média": "priority-medium",
+        "Alta": "priority-high"
+      };
+      
+      html += `
+        <div class="task-item ${isDone}">
+          <input
+            type="checkbox"
+            class="task-checkbox"
+            ${t.done ? "checked" : ""}
+            onchange="toggleTask('${t.id}')"
+          />
+          <div class="task-info">
+            <div class="task-name">${escapeHtml(t.name)}</div>
+            <div class="task-meta">
+              <i class="far fa-clock"></i> ${t.start} • ${t.duration}min
+              <span class="task-badge ${priorityColors[t.priority] || ''}">${t.priority}</span>
+              ${t.alarm ? `<span class="alarm-indicator ${t.alarmEnabled !== false ? 'on' : 'off'}">
+                <i class="fas fa-bell"></i> ${t.alarm}
+              </span>` : ''}
+            </div>
+          </div>
+          <div class="task-actions">
+            <button class="btn-icon" onclick="openEditTask('${t.id}')" title="Editar">
+              <i class="fas fa-pen"></i>
+            </button>
+            <button class="btn-icon danger" onclick="deleteTask('${t.id}')" title="Excluir">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    });
+  }
+  
+  html += `
+    </div>
+    
+    <nav class="bottom-nav">
+      <button class="nav-item active" onclick="render()">
+        <i class="fas fa-home"></i>
+        <span>Hoje</span>
+      </button>
+      <button class="nav-item" onclick="openWeek()">
+        <i class="fas fa-calendar-week"></i>
+        <span>Semana</span>
+      </button>
+      <button class="nav-item" onclick="openFixed()">
+        <i class="fas fa-bookmark"></i>
+        <span>Fixos</span>
+      </button>
+      <button class="nav-item" onclick="openSettings()">
+        <i class="fas fa-cog"></i>
+        <span>Config</span>
+      </button>
+    </nav>
+  `;
+  
+  home.innerHTML = html;
+  updateBadge();
+}
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str).replace(/[&<>"']/g, m => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[m]));
+}
+
+function updateBadge() {
+  const today = dateKey();
+  const count = db.tasks.filter(t => t.date === today && !t.done).length;
+  if (count > 0 && "setAppBadge" in navigator) {
+    navigator.setAppBadge(count).catch(() => {});
+  } else if ("setAppBadge" in navigator) {
+    navigator.clearAppBadge().catch(() => {});
+  }
+}
+
+// ============================================================
+// GERENCIAMENTO DE TAREFAS
+// ============================================================
+
+function toggleTask(id) {
+  const task = db.tasks.find(t => t.id === id);
+  if (!task) return;
+  
+  task.done = !task.done;
+  save();
+  render();
+  
+  if (task.done) {
+    showToast(`Tarefa "${task.name}" concluída! 🎉`, "success");
+  }
+}
+
+function deleteTask(id) {
+  const task = db.tasks.find(t => t.id === id);
+  if (!task) return;
+  
+  if (confirm(`Excluir tarefa "${task.name}"?`)) {
+    db.tasks = db.tasks.filter(t => t.id !== id);
+    save();
+    render();
+    showToast("Tarefa excluída", "info");
+  }
+}
+
+// ============================================================
+// ABRIR MODAL PARA ADICIONAR/EDITAR TAREFA
+// ============================================================
+
+function openAddTask() {
+  openTaskModal();
+}
+
+function openEditTask(id) {
+  const task = db.tasks.find(t => t.id === id);
+  if (task) {
+    openTaskModal(task);
+  }
+}
+
+function openTaskModal(task = null) {
+  const today = dateKey();
+  const isEditing = !!task;
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  let html = `
+    <div class="modal-header">
+      <h2><i class="fas ${isEditing ? 'fa-pen' : 'fa-plus-circle'}"></i> ${isEditing ? 'Editar' : 'Nova'} Tarefa</h2>
+      <button class="modal-close" onclick="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      ${!isEditing ? `
+        <button class="btn btn-secondary full-width" onclick="openAutoTask()" style="margin-bottom: 16px;">
+          <i class="fas fa-bolt"></i> ⚡ Adicionar automaticamente
+        </button>
+      ` : ''}
+      <form id="taskForm">
+        <div class="form-group">
+          <label><i class="fas fa-tag"></i> Nome da tarefa *</label>
+          <input id="fName" type="text" value="${escapeHtml(task?.name || '')}" placeholder="Ex: Estudar Matemática" required />
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-calendar-day"></i> Data *</label>
+            <input id="fDate" type="date" value="${task?.date || today}" required />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-clock"></i> Início *</label>
+            <input id="fStart" type="time" value="${task?.start || ''}" required />
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-hourglass-half"></i> Duração (min) *</label>
+            <input id="fDur" type="number" min="1" value="${task?.duration || 30}" required />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-flag"></i> Prioridade *</label>
+            <select id="fPriority">
+              <option value="Baixa" ${task?.priority === 'Baixa' ? 'selected' : ''}>🟢 Baixa</option>
+              <option value="Média" ${task?.priority === 'Média' ? 'selected' : ''}>🟡 Média</option>
+              <option value="Alta" ${task?.priority === 'Alta' ? 'selected' : ''}>🔴 Alta</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-calendar-check"></i> Prazo (opcional)</label>
+            <input id="fDeadline" type="date" value="${task?.deadline || ''}" />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-bell"></i> Alarme (opcional)</label>
+            <input id="fAlarm" type="time" value="${task?.alarm || ''}" />
+          </div>
+        </div>
+        
+        <div id="conflictWarning" class="conflict-warning" style="display:none;">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span id="conflictMessage"></span>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+          <button id="saveTaskBtn" type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> ${isEditing ? 'Atualizar' : 'Salvar'}
+          </button>
+        </div>
+      </form>
+    </div>
+  `;
+  
+  box.innerHTML = html;
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+  
+  const fields = ["fName", "fDate", "fStart", "fDur", "fDeadline", "fAlarm", "fPriority"];
+  const validate = () => {
+    const name = document.getElementById("fName").value.trim();
+    const date = document.getElementById("fDate").value;
+    const start = document.getElementById("fStart").value;
+    const dur = Number(document.getElementById("fDur").value);
+    const ok = name && date && start && dur > 0;
+    
+    const conflict = ok ? checkConflicts(date, start, dur, task?.id) : "";
+    const warn = document.getElementById("conflictWarning");
+    const msg = document.getElementById("conflictMessage");
+    
+    if (conflict) {
+      warn.style.display = "flex";
+      msg.textContent = conflict;
+    } else {
+      warn.style.display = "none";
+    }
+    
+    document.getElementById("saveTaskBtn").disabled = !ok || !!conflict;
+  };
+  
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", validate);
+      el.addEventListener("change", validate);
+    }
+  });
+  
+  document.getElementById("taskForm").onsubmit = (e) => {
+    e.preventDefault();
+    const saveBtn = document.getElementById("saveTaskBtn");
+    if (saveBtn.disabled) return;
+    
+    const name = document.getElementById("fName").value.trim();
+    const date = document.getElementById("fDate").value;
+    const start = document.getElementById("fStart").value;
+    const duration = Number(document.getElementById("fDur").value);
+    const priority = document.getElementById("fPriority").value;
+    const deadline = document.getElementById("fDeadline").value;
+    const alarm = document.getElementById("fAlarm").value;
+    
+    const endMinutes = minutes(start) + duration;
+    const end = timeFromMinutes(endMinutes);
+    
+    const data = { name, date, start, duration, priority, deadline, alarm, alarmEnabled: task?.alarmEnabled !== false, end };
+    
+    if (isEditing) {
+      Object.assign(task, data);
+      showToast("Tarefa atualizada!", "success");
+    } else {
+      db.tasks.push({ id: generateId(), done: false, ...data });
+      showToast("Tarefa criada! 🎯", "success");
+    }
+    
+    save();
+    closeModal();
+    render();
+  };
+  
+  setTimeout(validate, 100);
+}
+
+// ============================================================
+// ADICIONAR TAREFA AUTOMATICAMENTE
+// ============================================================
+
+let autoCandidates = [];
+let autoDraft = null;
+
+function openAutoTask() {
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  box.innerHTML = `
+    <div class="modal-header">
+      <h2><i class="fas fa-bolt"></i> Adicionar Automaticamente</h2>
+      <button class="modal-close" onclick="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p style="color: var(--gray-500); font-size: 14px; margin-bottom: 16px;">
+        <i class="fas fa-info-circle"></i> O sistema encontrará horários disponíveis para sua tarefa
+      </p>
+      <form id="autoTaskForm">
+        <div class="form-group">
+          <label><i class="fas fa-tag"></i> Nome da tarefa *</label>
+          <input id="aName" type="text" placeholder="Ex: Estudar Inglês" required />
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-hourglass-half"></i> Duração (min) *</label>
+            <input id="aDur" type="number" min="1" value="30" required />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-flag"></i> Prioridade *</label>
+            <select id="aPriority">
+              <option value="Baixa">🟢 Baixa</option>
+              <option value="Média" selected>🟡 Média</option>
+              <option value="Alta">🔴 Alta</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-calendar-check"></i> Prazo (opcional)</label>
+            <input id="aDeadline" type="date" />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-bell"></i> Alarme (opcional)</label>
+            <input id="aAlarm" type="time" />
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i> Encontrar horários
+          </button>
+        </div>
+      </form>
+    </div>
+  `;
+  
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+  
+  const minToday = dateKey();
+  document.getElementById("aDeadline").min = minToday;
+  
+  document.getElementById("autoTaskForm").onsubmit = (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById("aName").value.trim();
+    const duration = Number(document.getElementById("aDur").value);
+    const priority = document.getElementById("aPriority").value;
+    const deadline = document.getElementById("aDeadline").value;
+    const alarm = document.getElementById("aAlarm").value;
+    
+    if (!name || duration <= 0) {
+      showToast("Preencha todos os campos obrigatórios", "error");
+      return;
+    }
+    
+    if (deadline && deadline < minToday) {
+      showToast("O prazo não pode ser anterior a hoje", "error");
+      return;
+    }
+    
+    autoDraft = { name, duration, priority, deadline, alarm };
+    autoCandidates = getAutoSuggestions(duration, deadline);
+    
+    if (!autoCandidates.length) {
+      showToast("Não encontrei horários disponíveis", "warning");
+      return;
+    }
+    
+    showAutoSuggestions();
+  };
+}
+
+function showAutoSuggestions() {
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  let html = `
+    <div class="modal-header">
+      <h2><i class="fas fa-clock"></i> Horários Disponíveis</h2>
+      <button class="modal-close" onclick="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p style="color: var(--gray-500); margin-bottom: 16px;">
+        <i class="fas fa-info-circle"></i> Selecione um horário para agendar
+      </p>
+      <div id="autoSuggestions">
+  `;
+  
+  autoCandidates.forEach((s, i) => {
+    html += `
+      <button class="btn btn-secondary full-width" style="text-align: left; justify-content: flex-start; margin-bottom: 8px;" onclick="saveAutoTask(${i})">
+        <i class="fas fa-calendar-day"></i>
+        <span><strong>${formatDateShort(s.date)}</strong> • ${s.start} - ${s.end}</span>
+      </button>
+    `;
+  });
+  
+  html += `
+      </div>
+      <button class="btn btn-secondary full-width" onclick="openAutoTask()" style="margin-top: 8px;">
+        <i class="fas fa-arrow-left"></i> Voltar
+      </button>
+    </div>
+  `;
+  
+  box.innerHTML = html;
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+}
+
+function getAutoSuggestions(duration, deadline) {
+  const result = [];
+  const seen = new Set();
+  const now = new Date();
+  now.setSeconds(0, 0);
+  
+  const lastDate = deadline || dateKey(new Date(now.getTime() + 6 * 86400000));
+  const startDate = new Date(now);
+  startDate.setHours(0, 0, 0, 0);
+  
+  const slots = [8*60, 10*60, 14*60, 16*60, 18*60, 19*60, 20*60];
+  
+  for (let day = 0; day < 30 && result.length < 7; day++) {
+    const d = new Date(startDate);
+    d.setDate(d.getDate() + day);
+    const date = dateKey(d);
+    
+    if (date > lastDate) break;
+    
+    let addedToday = 0;
+    
+    for (const m of slots) {
+      if (result.length >= 7 || addedToday >= 2) break;
+      
+      let startMinutes = m;
+      
+      if (day === 0) {
+        const current = now.getHours() * 60 + now.getMinutes() + 10;
+        if (startMinutes < current) continue;
+      }
+      
+      if (startMinutes + duration > 21 * 60) continue;
+      
+      const start = timeFromMinutes(startMinutes);
+      const key = date + "_" + start;
+      
+      if (seen.has(key)) continue;
+      
+      if (!checkConflicts(date, start, duration)) {
+        const endMinutes = startMinutes + duration;
+        const end = timeFromMinutes(endMinutes);
+        
+        result.push({ date, start, end });
+        seen.add(key);
+        addedToday++;
+      }
+    }
+  }
+  
+  return result;
+}
+
+function saveAutoTask(index) {
+  const slot = autoCandidates[index];
+  if (!slot || !autoDraft) return;
+  
+  const draft = autoDraft;
+  
+  if (checkConflicts(slot.date, slot.start, draft.duration)) {
+    showToast("Esse horário não está mais disponível", "error");
+    openAutoTask();
+    return;
+  }
+  
+  const endMinutes = minutes(slot.start) + draft.duration;
+  
+  db.tasks.push({
+    id: generateId(),
+    done: false,
+    name: draft.name,
+    date: slot.date,
+    start: slot.start,
+    duration: draft.duration,
+    priority: draft.priority,
+    deadline: draft.deadline,
+    alarm: draft.alarm,
+    alarmEnabled: true,
+    end: timeFromMinutes(endMinutes)
+  });
+  
+  save();
+  closeModal();
+  render();
+  showToast(`Tarefa "${draft.name}" agendada! 🎯`, "success");
+  
+  autoCandidates = [];
+  autoDraft = null;
+}
+
+function closeModal() {
+  const modal = document.getElementById("modal");
+  modal.classList.remove("active");
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 300);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".modal-overlay").addEventListener("click", closeModal);
+});
+
+// ============================================================
+// VISUALIZAÇÃO SEMANAL
+// ============================================================
+
+let weekOffset = 0;
+
+function openWeek(offset = 0) {
+  weekOffset = offset;
+  const base = new Date();
+  base.setHours(0, 0, 0, 0);
+  base.setDate(base.getDate() - base.getDay() + offset * 7);
+  
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  let html = `
+    <div class="modal-header">
+      <h2><i class="fas fa-calendar-week"></i> Agenda Semanal</h2>
+      <button class="modal-close" onclick="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="week-nav">
+        <button class="btn btn-secondary btn-sm" onclick="openWeek(${offset - 1})">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <span class="week-title">
+          ${formatDateShort(dateKey(base))} - ${formatDateShort(dateKey(new Date(base.getTime() + 6 * 86400000)))}
+        </span>
+        <button class="btn btn-secondary btn-sm" onclick="openWeek(${offset + 1})">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="week-grid">
+  `;
+  
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(base);
+    d.setDate(base.getDate() + i);
+    const k = dateKey(d);
+    const today = k === dateKey();
+    
+    const tasks = db.tasks
+      .filter(t => t.date === k)
+      .sort((a, b) => a.start.localeCompare(b.start));
+    
+    const fixed = db.fixed
+      .filter(f => f.days.includes(d.getDay()))
+      .sort((a, b) => a.start.localeCompare(b.start));
+    
+    html += `
+      <div class="week-day ${today ? 'today' : ''}">
+        <div class="week-day-header">
+          <span>${d.toLocaleDateString("pt-BR", { weekday: "short" })}</span>
+          <span class="week-day-number">${d.getDate()}</span>
+        </div>
+        <div class="week-day-content">
+    `;
+    
+    fixed.forEach(f => {
+      html += `
+        <div class="week-item fixed">
+          <i class="fas fa-bookmark"></i>
+          <span>${escapeHtml(f.name)}</span>
+          <small>${f.start}</small>
+        </div>
+      `;
+    });
+    
+    tasks.forEach(t => {
+      html += `
+        <div class="week-item ${t.done ? 'done' : ''}">
+          <input
+            type="checkbox"
+            ${t.done ? "checked" : ""}
+            onchange="toggleWeekTask('${t.id}')"
+          />
+          <span>${escapeHtml(t.name)}</span>
+          <small>${t.start}</small>
+        </div>
+      `;
+    });
+    
+    if (fixed.length === 0 && tasks.length === 0) {
+      html += `<div class="week-empty">—</div>`;
+    }
+    
+    html += `
+        </div>
+      </div>
+    `;
+  }
+  
+  html += `
+      </div>
+    </div>
+  `;
+  
+  box.innerHTML = html;
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+}
+
+function toggleWeekTask(id) {
+  const task = db.tasks.find(t => t.id === id);
+  if (task) {
+    task.done = !task.done;
+    save();
+    render();
+    openWeek(weekOffset);
+  }
+}
+
+// ============================================================
+// COMPROMISSOS FIXOS
+// ============================================================
+
+function openFixed() {
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  let html = `
+    <div class="modal-header">
+      <h2><i class="fas fa-bookmark"></i> Compromissos Fixos</h2>
+      <button class="modal-close" onclick="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="fixedList">
+  `;
+  
+  if (db.fixed.length === 0) {
+    html += `
+      <div class="empty-state small">
+        <i class="fas fa-bookmark"></i>
+        <p>Nenhum compromisso fixo</p>
+      </div>
+    `;
+  } else {
+    db.fixed.forEach(f => {
+      const days = f.days.map(d => ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"][d]).join(" ");
+      html += `
+        <div class="fixed-item">
+          <div class="fixed-info">
+            <div class="fixed-name">${escapeHtml(f.name)}</div>
+            <div class="fixed-meta">${days} • ${f.start} - ${f.end}</div>
+          </div>
+          <div class="fixed-actions">
+            <button class="btn-icon" onclick="openFixedForm('${f.id}')">
+              <i class="fas fa-pen"></i>
+            </button>
+            <button class="btn-icon danger" onclick="deleteFixed('${f.id}')">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    });
+  }
+  
+  html += `
+      </div>
+      <button class="btn btn-primary full-width" onclick="openFixedForm()">
+        <i class="fas fa-plus"></i> Adicionar compromisso fixo
+      </button>
+    </div>
+  `;
+  
+  box.innerHTML = html;
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+}
+
+function openFixedForm(id = null) {
+  const fixed = id ? db.fixed.find(f => f.id === id) : null;
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  const isEditing = !!fixed;
+  const days = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  
+  let html = `
+    <div class="modal-header">
+      <h2><i class="fas ${isEditing ? 'fa-pen' : 'fa-plus-circle'}"></i> ${isEditing ? 'Editar' : 'Novo'} Compromisso Fixo</h2>
+      <button class="modal-close" onclick="openFixed()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="fixedForm">
+        <div class="form-group">
+          <label>Nome do compromisso *</label>
+          <input id="fxName" type="text" value="${escapeHtml(fixed?.name || '')}" required />
+        </div>
+        
+        <div class="form-group">
+          <label>Dias da semana *</label>
+          <div class="day-checkboxes">
+            ${days.map((d, i) => `
+              <label class="day-check">
+                <input type="checkbox" value="${i}" ${fixed?.days.includes(i) ? 'checked' : ''} />
+                <span>${d}</span>
+              </label>
+            `).join("")}
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>Início *</label>
+            <input id="fxStart" type="time" value="${fixed?.start || ''}" required />
+          </div>
+          <div class="form-group">
+            <label>Fim *</label>
+            <input id="fxEnd" type="time" value="${fixed?.end || ''}" required />
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="openFixed()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> ${isEditing ? 'Atualizar' : 'Salvar'}
+          </button>
+        </div>
+      </form>
+    </div>
+  `;
+  
+  box.innerHTML = html;
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+  
+  document.getElementById("fixedForm").onsubmit = (e) => {
+    e.preventDefault();
+    const name = document.getElementById("fxName").value.trim();
+    const start = document.getElementById("fxStart").value;
+    const end = document.getElementById("fxEnd").value;
+    const days = [...document.querySelectorAll('#fixedForm input[type="checkbox"]:checked')]
+      .map(el => Number(el.value));
+    
+    if (!name || !start || !end || days.length === 0) {
+      showToast("Preencha todos os campos obrigatórios", "error");
+      return;
+    }
+    
+    if (minutes(start) >= minutes(end)) {
+      showToast("O fim deve ser depois do início", "error");
+      return;
+    }
+    
+    const data = { name, days, start, end };
+    
+    if (fixed) {
+      Object.assign(fixed, data);
+      showToast("Compromisso atualizado!", "success");
+    } else {
+      db.fixed.push({ id: generateId(), ...data });
+      showToast("Compromisso fixo criado! 📌", "success");
+    }
+    
+    save();
+    openFixed();
+    render();
+  };
+}
+
+function deleteFixed(id) {
+  if (confirm("Excluir este compromisso fixo?")) {
+    db.fixed = db.fixed.filter(f => f.id !== id);
+    save();
+    openFixed();
+    render();
+    showToast("Compromisso excluído", "info");
+  }
+}
+
+// ============================================================
+// CONFIGURAÇÕES
+// ============================================================
+
+function openSettings() {
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  box.innerHTML = `
+    <div class="modal-header">
+      <h2><i class="fas fa-cog"></i> Configurações</h2>
+      <button class="modal-close" onclick="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="settings-grid">
+        <button class="settings-card" onclick="openBlocked()">
+          <i class="fas fa-ban"></i>
+          <span>Horários bloqueados</span>
+          <small>Gerenciar períodos indisponíveis</small>
+        </button>
+        <button class="settings-card" onclick="openAlarms()">
+          <i class="fas fa-bell"></i>
+          <span>Avisos</span>
+          <small>Gerenciar alarmes das tarefas</small>
+        </button>
+        <button class="settings-card" onclick="backupData()">
+          <i class="fas fa-download"></i>
+          <span>Backup</span>
+          <small>Exportar dados</small>
+        </button>
+        <button class="settings-card" onclick="dataManagement()">
+          <i class="fas fa-database"></i>
+          <span>Gerenciar dados</span>
+          <small>Limpar ou restaurar</small>
+        </button>
+      </div>
+    </div>
+  `;
+  
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+}
+
+// ============================================================
+// AVISOS (ALARMS)
+// ============================================================
+
+function openAlarms() {
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  const alarms = db.tasks
+    .filter(t => t.alarm)
+    .sort((a, b) => a.alarm.localeCompare(b.alarm));
+  
+  let html = `
+    <div class="modal-header">
+      <h2><i class="fas fa-bell"></i> Avisos</h2>
+      <button class="modal-close" onclick="openSettings()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p style="color: var(--gray-500); font-size: 14px; margin-bottom: 16px;">
+        <i class="fas fa-info-circle"></i> Ative ou desative os avisos das tarefas
+      </p>
+      <div id="alarmList">
+  `;
+  
+  if (alarms.length === 0) {
+    html += `
+      <div class="empty-state small">
+        <i class="fas fa-bell-slash"></i>
+        <p>Nenhum aviso cadastrado</p>
+      </div>
+    `;
+  } else {
+    alarms.forEach(t => {
+      html += `
+        <div class="task-item">
+          <div class="task-info">
+            <div class="task-name">${escapeHtml(t.name)}</div>
+            <div class="task-meta">
+              <i class="far fa-calendar-alt"></i> ${formatDateShort(t.date)}
+              <i class="far fa-clock"></i> ${t.alarm}
+            </div>
+          </div>
+          <input
+            type="checkbox"
+            class="task-checkbox"
+            ${t.alarmEnabled !== false ? "checked" : ""}
+            onchange="toggleAlarm('${t.id}')"
+          />
+        </div>
+      `;
+    });
+  }
+  
+  html += `
+      </div>
+    </div>
+  `;
+  
+  box.innerHTML = html;
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+}
+
+function toggleAlarm(id) {
+  const task = db.tasks.find(t => t.id === id);
+  if (!task) return;
+  
+  task.alarmEnabled = task.alarmEnabled === false ? true : false;
+  save();
+  render();
+  openAlarms();
+  
+  showToast(
+    `Aviso ${task.alarmEnabled !== false ? 'ativado' : 'desativado'} para "${task.name}"`,
+    "info"
+  );
+}
+
+// ============================================================
+// BLOQUEIOS
+// ============================================================
+
+function openBlocked() {
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  let html = `
+    <div class="modal-header">
+      <h2><i class="fas fa-ban"></i> Horários Bloqueados</h2>
+      <button class="modal-close" onclick="openSettings()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="blockedList">
+  `;
+  
+  if (db.blocked.length === 0) {
+    html += `
+      <div class="empty-state small">
+        <i class="fas fa-ban"></i>
+        <p>Nenhum horário bloqueado</p>
+      </div>
+    `;
+  } else {
+    db.blocked.forEach(b => {
+      const days = b.days.map(d => ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"][d]).join(" ");
+      html += `
+        <div class="blocked-item">
+          <div class="blocked-info">
+            <div class="blocked-time">⛔ ${b.start} - ${b.end}</div>
+            <div class="blocked-days">${days}</div>
+          </div>
+          <div class="blocked-actions">
+            <button class="btn-icon" onclick="openBlockedForm('${b.id}')">
+              <i class="fas fa-pen"></i>
+            </button>
+            <button class="btn-icon danger" onclick="deleteBlocked('${b.id}')">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    });
+  }
+  
+  html += `
+      </div>
+      <button class="btn btn-primary full-width" onclick="openBlockedForm()">
+        <i class="fas fa-plus"></i> Adicionar bloqueio
+      </button>
+    </div>
+  `;
+  
+  box.innerHTML = html;
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+}
+
+function openBlockedForm(id = null) {
+  const blocked = id ? db.blocked.find(b => b.id === id) : null;
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  const isEditing = !!blocked;
+  const days = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  
+  let html = `
+    <div class="modal-header">
+      <h2><i class="fas ${isEditing ? 'fa-pen' : 'fa-plus-circle'}"></i> ${isEditing ? 'Editar' : 'Novo'} Bloqueio</h2>
+      <button class="modal-close" onclick="openBlocked()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="blockedForm">
+        <div class="form-group">
+          <label>Dias da semana *</label>
+          <div class="day-checkboxes">
+            ${days.map((d, i) => `
+              <label class="day-check">
+                <input type="checkbox" value="${i}" ${blocked?.days.includes(i) ? 'checked' : ''} />
+                <span>${d}</span>
+              </label>
+            `).join("")}
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>Início *</label>
+            <input id="blStart" type="time" value="${blocked?.start || ''}" required />
+          </div>
+          <div class="form-group">
+            <label>Fim *</label>
+            <input id="blEnd" type="time" value="${blocked?.end || ''}" required />
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="openBlocked()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> ${isEditing ? 'Atualizar' : 'Salvar'}
+          </button>
+        </div>
+      </form>
+    </div>
+  `;
+  
+  box.innerHTML = html;
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+  
+  document.getElementById("blockedForm").onsubmit = (e) => {
+    e.preventDefault();
+    const start = document.getElementById("blStart").value;
+    const end = document.getElementById("blEnd").value;
+    const days = [...document.querySelectorAll('#blockedForm input[type="checkbox"]:checked')]
+      .map(el => Number(el.value));
+    
+    if (!start || !end || days.length === 0) {
+      showToast("Preencha todos os campos obrigatórios", "error");
+      return;
+    }
+    
+    if (minutes(start) >= minutes(end)) {
+      showToast("O fim deve ser depois do início", "error");
+      return;
+    }
+    
+    const data = { days, start, end };
+    
+    if (blocked) {
+      Object.assign(blocked, data);
+      showToast("Bloqueio atualizado!", "success");
+    } else {
+      db.blocked.push({ id: generateId(), ...data });
+      showToast("Horário bloqueado! ⛔", "success");
+    }
+    
+    save();
+    openBlocked();
+  };
+}
+
+function deleteBlocked(id) {
+  if (confirm("Excluir este horário bloqueado?")) {
+    db.blocked = db.blocked.filter(b => b.id !== id);
+    save();
+    openBlocked();
+    showToast("Bloqueio removido", "info");
+  }
+}
+
+// ============================================================
+// BACKUP E GERENCIAMENTO DE DADOS
+// ============================================================
+
+function backupData() {
+  const data = JSON.stringify(db, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `autoestudo_backup_${dateKey()}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast("Backup exportado com sucesso! 💾", "success");
+}
+
+function dataManagement() {
+  const modal = document.getElementById("modal");
+  const box = document.getElementById("modalBox");
+  
+  box.innerHTML = `
+    <div class="modal-header">
+      <h2><i class="fas fa-database"></i> Gerenciar Dados</h2>
+      <button class="modal-close" onclick="openSettings()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="data-actions">
+        <button class="data-action" onclick="deleteCompleted()">
+          <i class="fas fa-check-double" style="color: var(--success);"></i>
+          <span>Excluir concluídas</span>
+        </button>
+        <button class="data-action" onclick="deleteCurrentWeek()">
+          <i class="fas fa-calendar-week" style="color: var(--warning);"></i>
+          <span>Excluir semana atual</span>
+        </button>
+        <button class="data-action" onclick="deletePastWeeks()">
+          <i class="fas fa-arrow-left" style="color: var(--danger);"></i>
+          <span>Excluir semanas anteriores</span>
+        </button>
+        <button class="data-action" onclick="deleteFutureWeeks()">
+          <i class="fas fa-arrow-right" style="color: var(--primary);"></i>
+          <span>Excluir semanas futuras</span>
+        </button>
+        <button class="data-action danger" onclick="deleteAllTasks()">
+          <i class="fas fa-trash-alt"></i>
+          <span>Excluir todas as tarefas</span>
+        </button>
+      </div>
+    </div>
+  `;
+  
+  modal.style.display = "flex";
+  void modal.offsetHeight;
+  modal.classList.add("active");
+}
+
+function deleteCompleted() {
+  if (!confirm("Excluir todas as tarefas concluídas?")) return;
+  const count = db.tasks.filter(t => t.done).length;
+  db.tasks = db.tasks.filter(t => !t.done);
+  save();
+  render();
+  dataManagement();
+  showToast(`${count} tarefas concluídas removidas`, "success");
+}
+
+function deleteCurrentWeek() {
+  const start = getWeekStart();
+  const end = getWeekEnd();
+  if (!confirm(`Excluir TODAS as tarefas da semana atual?`)) return;
+  const count = db.tasks.filter(t => t.date >= start && t.date <= end).length;
+  db.tasks = db.tasks.filter(t => t.date < start || t.date > end);
+  save();
+  render();
+  dataManagement();
+  showToast(`${count} tarefas removidas da semana atual`, "info");
+}
+
+function deletePastWeeks() {
+  const start = getWeekStart();
+  if (!confirm("Excluir tarefas de semanas anteriores?")) return;
+  const count = db.tasks.filter(t => t.date < start).length;
+  db.tasks = db.tasks.filter(t => t.date >= start);
+  save();
+  render();
+  dataManagement();
+  showToast(`${count} tarefas antigas removidas`, "info");
+}
+
+function deleteFutureWeeks() {
+  const end = getWeekEnd();
+  if (!confirm("Excluir tarefas de semanas futuras?")) return;
+  const count = db.tasks.filter(t => t.date > end).length;
+  db.tasks = db.tasks.filter(t => t.date <= end);
+  save();
+  render();
+  dataManagement();
+  showToast(`${count} tarefas futuras removidas`, "info");
+}
+
+function deleteAllTasks() {
+  if (!confirm("ATENÇÃO! Excluir TODAS as tarefas?")) return;
+  const count = db.tasks.length;
+  db.tasks = [];
+  save();
+  render();
+  dataManagement();
+  showToast(`${count} tarefas removidas permanentemente`, "error");
+}
+
+function getWeekStart() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - d.getDay());
+  return dateKey(d);
+}
+
+function getWeekEnd() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - d.getDay() + 6);
+  return dateKey(d);
+}
+
+// ============================================================
+// ALARMES E NOTIFICAÇÕES
+// ============================================================
+
+const notifiedAlarms = {};
+
+function requestNotificationPermission() {
+  if ("Notification" in window && Notification.permission === "default") {
+    Notification.requestPermission();
+  }
+}
+
+function checkAlarms() {
+  const now = new Date();
+  const today = dateKey(now);
+  const currentTime = timeFromMinutes(now.getHours() * 60 + now.getMinutes());
+  
+  db.tasks.forEach(task => {
+    if (task.date !== today || !task.alarm || task.alarmEnabled === false) return;
+    
+    const key = `${task.id}_${today}_${task.alarm}`;
+    if (task.alarm === currentTime && !notifiedAlarms[key]) {
+      notifiedAlarms[key] = true;
+      
+      const message = `🔔 Está na hora de: ${task.name}`;
+      
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("AutoEstudo", { body: message, icon: "📚" });
+      } else {
+        showToast(message, "warning", 5000);
+      }
+    }
+  });
+}
+
+function startAlarms() {
+  requestNotificationPermission();
+  checkAlarms();
+  setInterval(checkAlarms, 10000);
+}
+
+// ============================================================
+// INICIALIZAÇÃO
+// ============================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  render();
+  startAlarms();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+
+</script>
+</body>
+</html>
